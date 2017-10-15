@@ -24,7 +24,7 @@ public class DwellingFloor {
         return flatArr;
     }
     //общая площадь квартир этажа
-    public double getCommonSquare(List<Flat> flats) {
+    public double getCommonSquare(Flat[] flats) {
         double square = 0;
         for (Flat flat: flats) {
             square += flat.getFlatSquare();
@@ -53,14 +53,15 @@ public class DwellingFloor {
     }
     //добавление квартиры по номеру
     public void add(int num) {
-        flatArr[num] = new Flat();
+        Flat[] newFlatArr = new Flat[flatArr.length + 1];
+
     }
     //сортировка по убыванию площади
     public static Flat[] getDescSortedArray() {
         Flat[] flatArr = getFlatArr();
         for (int i = 0; i < flatArr.length; i++) {
             for (int j = 0; j < flatArr.length; j++) {
-                if (flatArr[i].getFlatSquare() < flatArr[j].getFlatSquare()) {
+                if (flatArr[i].getFlatSquare() > flatArr[j].getFlatSquare()) {
                     Flat tmp = flatArr[i];
                     flatArr[i] = flatArr[j];
                     flatArr[j] = tmp;
