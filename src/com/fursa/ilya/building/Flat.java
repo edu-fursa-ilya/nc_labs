@@ -1,4 +1,4 @@
-package com.fursa.ilya;
+package com.fursa.ilya.building;
 //lab 2 task 1
 public class Flat {
     //площадь и количество комнат по умолчанию

@@ -1,27 +1,27 @@
-package com.fursa.ilya;
+package com.fursa.ilya.building;
 
 import java.util.List;
 
 //lab 2 task 2
 public class DwellingFloor {
     //массив квартир
-    private List<Flat> flatList;
+    private static Flat[] flatArr;
     private int flatCount;
     //конструктор принимает количество квартир
     public DwellingFloor(int flatCount) {
         this.flatCount = flatCount;
     }
     //конструктор принимает массив квартир
-    public DwellingFloor(List<Flat> flatList) {
-        this.flatList = flatList;
+    public DwellingFloor(Flat[] flatArr) {
+        this.flatArr = flatArr;
     }
     //метод получения кол-ва квартир
     public int getFlatCount() {
         return flatCount;
     }
     //получение массива квартир
-    public List<Flat> getFlatList() {
-        return flatList;
+    public static Flat[] getFlatArr() {
+        return flatArr;
     }
     //общая площадь квартир этажа
     public double getCommonSquare(List<Flat> flats) {
@@ -33,26 +33,41 @@ public class DwellingFloor {
     }
     //получение объекта квартиры по ее номеру
     public Flat getFlatByNum(int num) {
-        return flatList.get(num);
+        return flatArr[num];
     }
     //квартира с самой большой площадью
     public Flat getBiggestFlat() {
-        double max = flatList.get(0).getFlatSquare();
+        double max = flatArr[0].getFlatSquare();
         int index = 0;
 
-        for (int i = 0; i < flatList.size(); i++) {
-            if(flatList.get(i).getFlatSquare() > max) {
+        for (int i = 0; i < flatArr.length; i++) {
+            if(flatArr[i].getFlatSquare() > max) {
                 index = i;
             }
         }
-        return flatList.get(index);
+        return flatArr[index];
     }
     //удаление квартиры по номеру на этаже
     public void remove(int index) {
-        flatList.remove(index);
+      flatArr[index] = null;
     }
     //добавление квартиры по номеру
     public void add(int num) {
-        flatList.add(num, new Flat());
+        flatArr[num] = new Flat();
+    }
+    //сортировка по убыванию площади
+    public static Flat[] getDescSortedArray() {
+        Flat[] flatArr = getFlatArr();
+        for (int i = 0; i < flatArr.length; i++) {
+            for (int j = 0; j < flatArr.length; j++) {
+                if (flatArr[i].getFlatSquare() < flatArr[j].getFlatSquare()) {
+                    Flat tmp = flatArr[i];
+                    flatArr[i] = flatArr[j];
+                    flatArr[j] = tmp;
+                }
+            }
+        }
+
+        return flatArr;
     }
 }
