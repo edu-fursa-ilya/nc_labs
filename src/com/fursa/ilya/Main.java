@@ -1,42 +1,46 @@
 package com.fursa.ilya;
 
-
-import com.fursa.ilya.building.Dwelling;
-import com.fursa.ilya.building.DwellingFloor;
-import com.fursa.ilya.building.Flat;
-
-import java.util.ArrayList;
-import java.util.List;
-
+import com.fursa.ilya.buildings.Dwelling;
+import com.fursa.ilya.buildings.DwellingFloor;
+import com.fursa.ilya.buildings.Flat;
 
 public class Main {
 
     public static void main(String[] args) {
-        Flat[] flatArr = new Flat[11];
-        for (int i = 0; i < flatArr.length; i++) {
-            flatArr[i] = new Flat(10 * 2 + i, i + 1);
+        Flat[] flats = new Flat[10]; //массив квартир
+        for (int i = 0; i < flats.length; i++) {
+            flats[i] = new Flat(1 + i, 5 * i + 1);
         }
 
-        DwellingFloor dwellingFloor = new DwellingFloor(flatArr);
-
-        System.out.println("Вывод массива квартир: ");
-        for (Flat flat: flatArr) {
-            System.out.println("Площадь квартиры: " + flat.getFlatSquare() + " метров");
-            System.out.println("Количество комнат: " + flat.getRoomCount());
+        for (int i = 0; i < flats.length; i++) {
+            System.out.println("Квартира № " + i);
+            System.out.println("Кол-во комнат в квартире: " + flats[i].getRooms());
+            System.out.println("Общая площадь квартиры: " + flats[i].getSquare() + " кв.м");
+            System.out.println();
         }
 
-        DwellingFloor[] dwellingFloorArr = new DwellingFloor[11];
-        for(int i = 0; i < dwellingFloorArr.length; i++) {
-            dwellingFloorArr[i] = dwellingFloor;
+        DwellingFloor floor = new DwellingFloor(flats); //этаж
+        System.out.println("Самая большая площадь: " + floor.getBestSpace().getSquare() + " кв.м");
+        System.out.println("Квартира по индексу 5 имеет площадь: " + floor.getFlatByNumber(5).getSquare() + " кв.м");
+
+        //удаление квартиры
+        floor.delete(1);
+
+        for (int i = 0; i < floor.getSize(); i++) {
+            System.out.println("Квартира " + i);
         }
 
-        Dwelling dwelling = new Dwelling(dwellingFloorArr);
-        Flat[] sortedFlats = dwelling.getSortedFlatList();
-        System.out.println("Вывод отсортированных квартир: ");
-        for (int i = 0; i < sortedFlats.length; i++) {
-            System.out.println("Площадь: " + sortedFlats[i].getFlatSquare());
+        DwellingFloor[] dwellingFloors = new DwellingFloor[2];
+        dwellingFloors[0] = floor;
+        dwellingFloors[1] = floor;
+        Dwelling dwelling = new Dwelling(dwellingFloors);
+        Flat[] sortedFlats = dwelling.getSortedFlatArray(1);
+
+        System.out.println("Сортировка по площади: ");
+        for (Flat flat: sortedFlats) {
+            System.out.println(flat.getSquare());
         }
 
-        System.out.println("Общая площадь квартир: " + dwellingFloor.getCommonSquare(flatArr));
+
     }
 }
